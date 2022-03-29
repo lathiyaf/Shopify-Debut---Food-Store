@@ -1,0 +1,54 @@
+{%- if product.metafields.recipes_title.product_recipes_title != blank -%}
+<section class="product_recipes_section home_recipes_section">
+  <div class="product_recipes_section_inner container">
+  	<div class="section_header text-center mb-5">
+      {% if product.metafields.recipes_title.product_recipes_title != blank %}
+      	<h2 class="position-relative">{{product.metafields.recipes_title.product_recipes_title}}</h2>
+      {% endif %}
+    </div>
+    <div class="product_recipes_section_start">
+      <div class="recipes_scrollable">
+        <div class="row pb-4 recipes_mobile_slider">
+          {% assign i = 0 %}
+          {% assign ii = 0 %}
+          {% assign iii = 0 %}
+          {% assign iv = 0 %}
+          {% for product_recipes_image in product.metafields.product_recipes.product_recipes_image %}              
+            {% if product_recipes_image != blank %}
+            <div class="col-md-4">
+              <div class="recipes_column text-center position-relative">
+                <div class="recipes_image">
+                  <a href="{{ product.metafields.product_recipes.product_recipes_link[iv] }}"><img src="{{ product_recipes_image }}" alt="{{ product_recipes_image.alt }}"/></a>
+                </div>
+                <div class="recipes_info px-2 pt-4">
+                  {% if product.metafields.product_recipes.product_recipes_title[ii] != blank %}
+                  <h3>{{ product.metafields.product_recipes.product_recipes_title[ii] }}</h3>
+                  {% endif %}
+                  {% if product.metafields.product_recipes.product_recipes_info[iii] != blank %}
+                  <div class="h6">
+                    <p>{{ product.metafields.product_recipes.product_recipes_info[iii] }}</p>
+                  </div>
+                  {% endif %}
+                  {% if product.metafields.product_recipes.product_recipes_link[iv] != blank %}
+                  <a class="white_primary_btn mt-4" href="{{ product.metafields.product_recipes.product_recipes_link[iv] }}">View Recipe</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% assign i = i | plus: 1 %}
+            {% assign ii = ii | plus: 1 %}
+            {% assign iii = iii | plus: 1 %}
+          	{% assign iv = iv | plus: 1 %}
+          {% endfor %}
+        </div>
+      </div>
+      {% if product.metafields.recipes_view_all.view_all_btn_url != blank %}
+          <div class="text-center mt-5">
+            <a class="primary_btn" href="{{ product.metafields.recipes_view_all.view_all_btn_url }}">{{ product.metafields.recipes_view_all.view_all_btn_label }}</a>
+          </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{%- endif -%}

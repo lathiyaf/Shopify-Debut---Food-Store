@@ -1,0 +1,46 @@
+<section class="product_use_section">
+  <div class="product_use_section_inner container">
+  	<div class="section_header text-center mb-5">
+      {% if product.metafields.use_title.product_use_title != blank %}
+      	<h2 class="position-relative">{{ product.metafields.use_title.product_use_title }}</h2>
+      {% endif %}
+    </div>
+    <div class="product_use_section_start">
+      <div class="row justify-content-center mobile_third_slider">
+        {% assign i = 0 %}
+        {% assign ii = 0 %}
+        {% for product_use_title in product.metafields.product_use.product_use_title %}            
+        <div class="{% if product.metafields.product_use.product_use_title.size == 6 %}product_use_six {% endif %}
+					{%- if product.metafields.product_use.product_use_title.size == 1 -%}col-md-12{%- endif -%}
+                    {%- if product.metafields.product_use.product_use_title.size == 2 -%}col-md-6{%- endif -%}
+                    {%- if product.metafields.product_use.product_use_title.size == 3 -%}col-md-4{%- endif -%}
+                    {%- if product.metafields.product_use.product_use_title.size == 4 -%}col-md-3{%- endif -%}
+                    {%- if product.metafields.product_use.product_use_title.size == 5 or product.metafields.product_use.product_use_title.size == 6 -%}col-md-2{%- endif -%}">
+          <div class="product-uses-column text-center">
+            {% if product.metafields.product_use.product_use_icon[i] != blank %}
+            <div class="product-uses-icon mx-auto">
+              <img src="{{product.metafields.product_use.product_use_icon[i]}}" alt="product features icon"/>
+            </div>        
+            {% endif %}
+            {% if product_use_title != blank %}
+            <h4 class="my-3">{{ product_use_title }}</h4>
+            {% endif %}
+            {% if product.metafields.product_use.product_use_info[ii] != blank %}
+            <p>{{ product.metafields.product_use.product_use_info[ii] }}</p>
+            {% endif %}
+          </div>
+        </div>
+        {% assign i = i | plus: 1 %}
+        {% assign ii = ii | plus: 1 %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Product use",
+	"class":"section_start"
+  }
+{% endschema %}

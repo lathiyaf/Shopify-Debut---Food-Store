@@ -1,0 +1,87 @@
+<section class="blends_process">
+   <div class="blends_process_inner">
+      <div class="container">
+        {% if section.settings.title != blank %}
+          <div class="section_header text-center pb-5">
+              <h2 class="position-relative">{{ section.settings.title }}</h2>
+            {% if section.settings.subtitle != blank %}
+              <h5 class="secondary_color h3">{{ section.settings.subtitle }}</h5>
+            {% endif %}
+          </div>  
+		{% endif %}  
+        <div class="blends_process_start">
+          {% for block in section.blocks %}
+            <div class="blends_process_list mb-4 mb-md-5">
+              <div class="row align-items-center">
+                <div class="col-md-3">
+                  {% if block.settings.process_icon != blank %}
+                  <div class="blends_process_icon">
+                  	<img src="{{ block.settings.process_icon | img_url: 'large' }}" alt="Blends icon"/>
+                  </div>
+                  {% endif %}
+                </div>
+                <div class="col-md-9">
+                  <div class="blends_process_info">
+                    {% if block.settings.process_title != blank %}
+                    <h2>{{ block.settings.process_title }}</h2>
+                    {% endif %}
+                    {% if block.settings.process_info != blank %}
+                    <div>
+                    	{{ block.settings.process_info }}
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+   </div>
+</section>
+
+{% schema %}
+{
+   "name": "Blends process",
+   "class": "section_start",
+   "settings": [
+	  {
+        "type": "header",
+        "content": "title and info"
+      },
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+	  {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle"
+      }
+   ],
+	"blocks":[
+		{
+			"type":"blendsProcess",
+			"name":"Blends process",
+			"settings":[
+				{
+                  "type": "image_picker",
+                  "id": "process_icon",
+                  "label": "Process icon"
+                },
+				{
+                  "type": "text",
+                  "id": "process_title",
+                  "label": "Process title"
+                },
+				{
+                  "type": "richtext",
+                  "id": "process_info",
+                  "label": "Process info"
+                }
+			]
+		}
+	]
+}
+{% endschema %}

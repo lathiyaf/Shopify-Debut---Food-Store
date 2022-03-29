@@ -1,0 +1,151 @@
+<section class="hero_section">
+  <div class="hero_section_inner">
+    <div class="hero_section_slider {% if section.blocks.size > 1 %}hero_slider{% endif %}">
+      {% for block in section.blocks %}      
+      <div class="hero_bg_image" style="background-image:url({{ block.settings.image | img_url:'master' }});">
+        {% if block.settings.banner_url != blank %}
+        <a class="banner_link" href="{{ block.settings.banner_url }}">
+        {% endif %}
+          {% if block.settings.mobile_image != blank %}
+          <style>         
+            @media(max-width:767px){
+              .hero_bg_image .hero_info h4 {
+                  padding-bottom: 232px;
+              }
+              .hero_bg_image{
+                background-image:url({{ block.settings.mobile_image | img_url:'master' }}) !important;
+                background-position: bottom;
+                height: 510px;
+                display: block !IMPORTANT;
+              }  
+            }              
+          </style>
+          {% endif %}
+          <div class="hero_info">
+            {% if block.settings.title != blank %}
+            	<h1>{{ block.settings.title }}</h1>
+            {% endif %}
+            {% if block.settings.subtitle != blank %}
+            	<h4>{{ block.settings.subtitle }}</h4>
+            {% endif %}
+            {% if block.settings.btn_link != blank %}
+                <a class="primary_btn btn_shadow mt-3" href="{{ block.settings.btn_link }}">{{ block.settings.btn_label }}</a>
+            {% endif %}
+          </div>
+        {% if block.settings.banner_url != blank %}
+        </a>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+{% if section.settings.text_color != blank %}
+  .hero_info h1, .hero_info h4{
+    color:{{ section.settings.text_color }};
+  } 
+{% endif %}    
+{% if section.settings.full_height_img != blank %}
+  
+  .banner_link {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+  }
+  @media(min-width:768px){
+  	body .hero_bg_image{
+      height:95vh;
+      position: relative;
+    } 
+  }
+  @media(max-width:767px){
+  	body .hero_bg_image{
+      height:125vw;
+      position: relative;
+    } 
+  }
+  @media(min-width:992px) and (min-height:750px){
+  	body .hero_bg_image {
+        height: 45vw;
+        position: relative;
+    }
+  }
+{% endif %}    
+</style>
+
+
+{% schema %}
+{
+   "name": "Hero Section",
+   "class": "index-section section_start",
+   "settings": [
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text color"
+      },
+	  {
+        "type": "checkbox",
+        "id": "full_height_img",
+        "label": "Enable Full height Image"
+      }
+   ],
+   "blocks": [
+      {
+         "type": "heroSlider",
+         "name": "hero slide",
+         "settings": [
+			{
+               "type": "image_picker",
+               "id": "image",
+               "label": "Image"
+            },
+			{
+               "type": "image_picker",
+               "id": "mobile_image",
+               "label": "Mobile Image"
+            },
+			{
+               "type": "url",
+               "id": "banner_url",
+               "label": "Image URL"
+            },
+            {
+               "type": "text",
+               "id": "title",
+               "label": "Title"
+            },
+			{
+               "type": "text",
+               "id": "subtitle",
+               "label": "Subtitle"
+            },	
+			{
+               "type": "url",
+               "id": "btn_link",
+               "label": "Button URL"
+            },
+			{
+               "type": "text",
+               "id": "btn_label",
+               "label": "Button label"
+            }
+         ]
+      }
+   ],
+   "presets": [
+      {
+         "name": {
+            "en": "Hero Section"
+         },
+         "category": {
+            "en": "Home page section"
+         }
+      }
+   ]
+}
+{% endschema %}

@@ -1,0 +1,146 @@
+<section>
+  <div class="collection_product_section">
+    <div class="collection_product_section_inner">
+      <div class="container">
+        <div class="section_header text-center mb-md-5">
+            {% if section.settings.title != blank %}
+            <h2 class="position-relative">{{ section.settings.title }}</h2>
+            {% endif %}
+            {% if section.settings.richtext != blank %}
+            <h5>{{ section.settings.richtext }}</h5>
+            {% endif %}
+         </div>
+        <div class="collection_products">
+          {% if section.settings.product_1 != blank %}
+            <div class="collection_first_products text-center">
+              {% assign product_1 = all_products[section.settings.product_1] %}
+              <div class="collection_product_img">
+                <a href="{{ product_1.url }}"><img src="{{ section.settings.first_product_img | img_url: '1050x280' }}" alt="{{ section.settings.first_product_img.alt }}" /></a>
+              </div>
+              <div class="collection_products_info mt-4">
+                <h4>{{ product_1.title }}</h4>
+                {% if section.settings.product_description != blank %}
+                	<p>{{ section.settings.product_description }}</p>
+                {% endif %}
+                <h5 class="price_color my-3">{% include 'product-price-listing', product: product_1, show_vendor: show_vendor %}</h5>
+                <a href="{{ product_1.url }}" class="primary_btn">{{ section.settings.btn_label }}</a>
+              </div>
+            </div>
+          {% endif %}
+          <div class="product_row mt-md-5">
+            <div class="row">
+              {% for block in section.blocks %}
+              {% assign product = all_products[block.settings.product] %}
+                <div class="{%- if section.blocks.size == 1 -%}col-md-12{% else %}col-md-6{%- endif -%}">
+                  <div class="collection_product_column text-center collection_product_column_class">
+                  	<div class="collection_column_product_img position-relative">
+                      <a href="{{ product.url }}"><img src="{{ block.settings.product_img | img_url: 'master' }}" alt="{{ block.settings.product_img.alt }}" /></a>
+                    </div>
+                    <div class="collection_products_info mt-4">
+                      <h4>{{ product.title }}</h4>
+                      {% if block.settings.product_description != blank %}
+                          <p>{{ block.settings.product_description }}</p>
+                      {% endif %}
+                      <h5 class="price_color my-3">{% include 'product-price-listing', product: product, show_vendor: show_vendor %}</h5>
+                      <a href="{{ product.url }}" class="primary_btn">{{ section.settings.btn_label }}</a>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% if section.settings.test_product_url != blank %}
+        <div class="large_btn text-center mb-0 mt-5 mt-md-5">
+          <a class="primary_large_btn" href="{{ section.settings.test_product_url }}">{{ section.settings.test_product_label }}</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Collection product",
+	"class":"section_start pt-5",
+    "settings": [
+		{
+         "type": "header",
+         "content": "section header"
+        },
+        {
+           "type": "text",
+           "id": "title",
+           "label": "Title"
+        },
+        {
+           "type": "text",
+           "id": "richtext",
+           "label": "Info"
+        },
+		{
+           "type": "text",
+           "id": "btn_label",
+           "label": "Button label",
+		   "default":"Add to Cart"
+        },
+		{
+         "type": "header",
+         "content": "first product"
+        },
+		{
+           "type": "image_picker",
+           "id": "first_product_img",
+           "label": "Product image"
+        },
+		{
+           "type": "richtext",
+           "id": "product_description",
+           "label": "Product description"
+        },
+		{
+           "type": "product",
+           "id": "product_1",
+           "label": "Product"
+        },
+		{
+           "type": "header",
+           "content": "Testing kit Button"
+        },
+		{
+          "type": "text",
+          "id": "test_product_label",
+          "label": "Testing Kit Button label"
+        },
+        {
+          "type": "url",
+          "id": "test_product_url",
+          "label": "Testing Kit Button URL"
+        }
+	],
+	"blocks": [
+          {
+             "type": "Productcolumn",
+             "name": "Product column",
+             "settings": [
+				{
+                   "type": "image_picker",
+                   "id": "product_img",
+                   "label": "Product image"
+                },
+				{
+                   "type": "richtext",
+                   "id": "product_description",
+                   "label": "Product description"
+                },
+                {
+                   "type": "product",
+                   "id": "product",
+                   "label": "Product"
+                }
+             ]
+          }
+       ]
+  }
+{% endschema %}

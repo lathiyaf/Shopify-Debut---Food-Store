@@ -1,0 +1,260 @@
+<section class="video_slider">
+  <script type="text/javascript">
+    let isMobileBrowser = false;
+     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+			 isMobileBrowser = true;
+     }
+      function myFunction(str, id){
+        parent = document.getElementById(id);
+       children = parent.children[0];
+       
+        if(!isMobileBrowser){
+         children.setAttribute("src", str);
+        }
+      }
+      function myMobileFunction(str, id){
+        mparent = document.getElementById(id);
+        mchildren = mparent.children[0];
+        
+         isMobileId = id.includes("mobile");
+        	
+        if(isMobileBrowser){
+          if(isMobileId){
+          	mchildren.setAttribute("src", str);
+          }
+        }
+      }
+  </script>
+  <div class="video_slider_inner">    
+    <div class="container">
+      <div class="video_slider_start">
+        <div class="section_header text-center mb-4">
+            {% if section.settings.title != blank %}
+            <h2 class="position-relative">{{ section.settings.title }}</h2>
+            {% endif %}
+            {% if section.settings.richtext != blank %}
+            <h4>{{ section.settings.richtext }}</h4>
+            {% endif %}
+        </div>
+        <div class="step_icon_class">
+          <div class="step_icon_class_inner">
+            <div class="row justify-content-center">
+            	{% for block in section.blocks %}
+              		{% if block.settings.step_icon_img != blank %}
+              		<div class="col-4 col-md-2">
+                      <div class="step_icon_column_class text-center">
+                        <div class="step_icon_img">
+                        	<img class="lazyload" data-src="{{ block.settings.step_icon_img | img_url: '80x80' }}" alt="{{ block.settings.step_icon_img.alt }}" />
+                        </div>
+                        <div class="step_icon_info mt-3">
+                          {% if block.settings.step_count_text != blank %}
+                          	<h6>{{ block.settings.step_count_text }} {{ forloop.index }}</h6>
+                          {% endif %}
+                          {% if block.settings.step_icon_title != blank %}
+                          	<h5>{{ block.settings.step_icon_title }}</h5>
+                          {% endif %}
+                        </div>
+                      </div>
+              		</div>
+              		{% endif %}
+              	{% endfor %}
+            </div>
+          </div>
+        </div>
+        <ul {% if section.blocks.size > 1 %}class="video_animated_slider p-0 mb-0"{% endif %}>
+          {% for block in section.blocks %}
+            <li class="video_slider_start_inner">
+              <div class="video_slider_card">
+                {% if block.settings.video_url != blank %}
+                <div class="video_slider_class my-3 position-relative">
+                  <div>
+                    <video onloadstart="myFunction('{{ block.settings.video_url }}', 'video_slider_{{ forloop.index }}')" id="video_slider_{{ forloop.index }}" class="desktopVideo rounded d-none d-md-block lazyload{% if forloop.first %} firstvideoSlide{% endif %}" width="100%" height="100%" playsinline muted {% if forloop.first %}{% else %} autoplay{% endif %}>
+                      <source class="lazyload" type="video/mp4"/>
+                    </video>
+                  
+                    <video  onloadstart="myMobileFunction('{{ block.settings.mobile_video_url }}', 'mobile_video_slider_{{ forloop.index }}')" id="mobile_video_slider_{{ forloop.index }}" poster="https://cdn.shopify.com/s/files/1/0267/9373/8343/files/Poster.png?v=1634623809" class="mobileVideo rounded d-md-none lazyload{% if forloop.first %} firstvideoSlide{% endif %}" width="100%" height="100%" playsinline muted {% if forloop.first %}{% else %} autoplay{% endif %}>
+                      <source class="lazyload" type="video/mp4"/>
+                    </video>
+                  </div>
+                  {% if forloop.first %}
+                  <div class="video_play_btn">
+                  	{% include 'play_btn' %}
+                  </div>
+                  {% endif %}
+                </div>
+                {% endif %}
+              </div>
+              <div class="video_slider_mobile_nav d-md-none mt-0">
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="video_mobile_column text-center">
+                        <div class="video_nav_top">
+                          <div class="video_nav_icon_img_main">
+                              <img class="video_nav_icon_img lazyload" data-src="{{ block.settings.icon_image | img_url:'large' }}" alt="{{ block.settings.icon_image.alt }}"/>
+                          </div>
+                          <h4 class="my-3">{{ block.settings.info_title }}</h4>
+                        </div>
+                        <div class="video_nav_icon_info mt-3">{{block.settings.info_richtext}}</div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </li>            
+          {% endfor %}
+        </ul> 
+        <div class="video_slider_nav d-none d-md-block">
+          <div class="row video_slider_nav_inner">
+          	{% for block in section.blocks %}
+            <div class="col-6 col-lg-3">
+                <div class="video_nav_column video-slider-index-{{ forloop.index0 }}">
+                  <div class="video_nav_top d-flex align-items-center justify-content-start">
+                    <div class="video_nav_icon_img_main">
+                        <img class="video_nav_icon_img lazyload" data-src="{{ block.settings.icon_image | img_url:'large' }}" alt="{{ block.settings.icon_image.alt }}"/>
+                    </div>
+                    <h4 class="mb-0 ms-3">{{ block.settings.info_title }}</h4>
+                  </div>
+                  <div class="video_nav_icon_info mt-3 richtext">{{block.settings.info_richtext}}</div>
+                </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% comment %}
+<script> 
+var videoPlayer = document.getElementById("video_slider_2");
+
+function blends_video_2(){
+    videoPlayer.play();
+};
+  
+var videoPlayer2 = document.getElementById("video_slider_3");
+
+function blends_video_3(){
+    videoPlayer2.play();
+};  
+  
+var videoPlayer3 = document.getElementById("video_slider_4");
+
+function blends_video_4(){
+    videoPlayer3.play();
+};   
+  
+  
+var mobilevideoPlayer = document.getElementById("mobile_video_slider_2");
+
+function mobile_blends_video_2(){
+    mobilevideoPlayer.play();
+};
+  
+var mobilevideoPlayer2 = document.getElementById("mobile_video_slider_3");
+
+function mobile_blends_video_3(){
+    mobilevideoPlayer2.play();
+};  
+  
+var mobilevideoPlayer3 = document.getElementById("mobile_video_slider_4");
+
+function mobile_blends_video_4(){
+    mobilevideoPlayer3.play();
+};    
+    
+</script>
+{% endcomment %}
+
+{% schema %}
+{
+   "name": "video slider section",
+   "max_blocks":4,
+	"settings": [
+	  {
+         "type": "header",
+         "content": "section header"
+      },
+      {
+         "type": "text",
+         "id": "title",
+         "label": "Title"
+      },
+      {
+         "type": "text",
+         "id": "richtext",
+         "label": "Info"
+      }
+    ],
+   "blocks": [
+	  {
+         "type": "video_slide",
+         "name": "Video slider",
+         "settings": [
+			{
+               "type": "header",
+               "content": "Step info"
+            },
+			{
+               "type": "image_picker",
+               "id": "step_icon_img",
+               "label": "Step Icon Image"
+            },
+			{
+               "type": "text",
+               "id": "step_count_text",
+               "label": "Step Count Text"
+            },
+			{
+               "type": "text",
+               "id": "step_icon_title",
+               "label": "Step Icon Title"
+            },
+			{
+               "type": "header",
+               "content": "Video slide"
+            },
+			{
+               "type": "text",
+               "id": "video_url",
+               "label": "Video url"
+            },
+		    {
+               "type": "text",
+               "id": "mobile_video_url",
+               "label": "Mobile Video url"
+            },
+			{
+               "type": "header",
+               "content": "video info"
+            },
+			{
+              "type": "image_picker",
+              "id": "icon_image",
+              "label": "Icon image"
+            },
+			{
+               "type": "text",
+               "id": "info_title",
+               "label": "Info title"
+            },
+			{
+               "type": "richtext",
+               "id": "info_richtext",
+               "label": "Info richtext"
+            }
+         ]
+      }
+   ],
+   "presets": [
+      {
+         "name": {
+            "en": "video slider section"
+         },
+         "category": {
+            "en": "Home page section"
+         }
+      }
+   ]
+}
+{% endschema %}

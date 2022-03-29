@@ -1,0 +1,78 @@
+<section>
+  <div class="faq_section">
+    <div class="faq_section_inner">
+      <div class="container">
+        {% if section.settings.title != blank %}
+        <div class="section_header text-center">
+          <h2 class="position-relative">{{ section.settings.title }}</h2>
+          {% if section.settings.subtitle != blank %}
+            <h3>{{ section.settings.subtitle }}</h3>
+          {% endif %}
+        </div>
+        {% endif %}
+        <div class="product_info_list faq_section_start mt-3">
+          <ul class="list-unstyled">
+          	{% for block in section.blocks %}
+              {% if block.settings.title != blank %}	
+              <li class="mb-3">
+                  <div class="product_info_title d-flex align-items-center justify-content-between">
+                    <h4 class="mb-0">{{ block.settings.title }}</h4>
+                    <i class="fas fa-chevron-down"></i>
+                  </div>
+                  {% if block.settings.richtext != blank %}
+                    <div class="product_info_section section_hide">
+                      <div class="richtext">
+                        {{ block.settings.richtext }}
+                      </div>
+                    </div>
+                  {% endif %}
+              </li>
+              {% endif %}            
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "FAQ section",
+	"class": "section_start",
+    "settings": [
+	  {
+        "type": "header",
+        "content": "title and info"
+      },
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+	  {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle"
+      }
+    ],
+	"blocks":[
+		{
+			"type":"FAQ",
+			"name":"FAQ",
+			"settings":[
+				{
+                  "type": "text",
+                  "id": "title",
+                  "label": "FAQ title"
+                },
+				{
+                  "type": "richtext",
+                  "id": "richtext",
+                  "label": "FAQ info"
+                }
+			]
+		}
+	]
+  }
+{% endschema %}

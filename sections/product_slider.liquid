@@ -1,0 +1,168 @@
+<section class="product_slider_section">
+  <div class="product_slider_section_inner">
+    <div class="section_header text-center">
+      {% if section.settings.title != blank %}
+      	<h2 class="position-relative">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.richtext != blank %}
+      	<div class="richtext">{{ section.settings.richtext }}</div>
+      {% endif %}
+    </div>
+    <div class="blends_features_start mt-2 mb-4">    
+      <div class="container">
+        <div class="blends_step_start">
+            <div class="row justify-content-center">
+              {% for block in section.blocks %}
+              <div class="{%- if section.blocks.size == 1 -%}col-12 col-md-12{%- endif -%}
+                          {%- if section.blocks.size == 2 -%}col-6 col-md-6{%- endif -%}
+                          {%- if section.blocks.size == 3 -%}col-4 col-md-2 px-1{%- endif -%}
+                          {%- if section.blocks.size == 4 -%}col-6 col-md-3{%- endif -%}">
+                <div class="blends_features_column text-center">
+                  {% if block.settings.features_image != blank %}
+                  <div class="blends_features_icon">
+                      <img class="lazyload" data-src="{{ block.settings.features_image | img_url:'80x80' }}" alt="blends features icon" />
+                  </div>
+                  {% endif %}
+                  {% if block.settings.features_title != blank %}
+                  <div class="blends_features_info">
+                    <h5 class="mb-0 mb-md-2">{{ block.settings.features_title }}</h5>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          <div class="text-center">
+            {% if section.settings.btn_link != blank %}
+              <a class="primary_btn mt-3" href="{{ section.settings.btn_link }}">{{ section.settings.btn_label }}</a>
+            {% endif %}
+          </div>
+        </div>
+        {% if section.settings.test_product_url != blank %}
+        <div class="large_btn text-center my-5">
+          <a class="primary_large_btn" href="{{ section.settings.test_product_url }}">{{ section.settings.test_product_label }}</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    
+    <div class="product_slider_start">      
+      <div class="row product_animated_slider">
+    	{% assign collection = collections[section.settings.collection] %}
+        {% for product in collection.products %}
+      		<div class="col-md-3">
+              <div class="product_column">
+                <div class="product_column_info text-center mb-4 mb-md-5">
+                  {% if product.title != blank %}
+                  	<h3>{{ product.title }}</h3>
+                  	{% comment %}
+                  	<span>{{ product.metafields.descriptors.subtitle }}</span>
+                  	{% endcomment %}
+                  {% endif %}                  
+                </div>
+                <div class="product_column_img">
+                  <div class="product_img_class">                    
+                    <a href="{{ product.url }}" class="position-relative d-inline-block">
+                      {% if product.tags contains 'Awarded_product' %}
+                        <div class="jida_awarded_label">
+                          <img src="{{ settings.product_award_label | img_url: 'master' }}" alt="{{ settings.product_award_label.alt }}"/>
+                        </div>
+                      {% endif %}
+                      {% for image in product.images %}
+                        {% if image.alt == 'productimage' %}
+                          <img                          
+                          src="{{ image.src | img_url: '400x400' }}"                      
+                          data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                          data-aspectratio="{{ image.aspect_ratio }}"
+                          data-sizes="auto"
+                          alt="{{ image.alt | escape }}">   
+                        {% endif %}
+                      {% endfor %}
+                    </a>
+                  </div>
+                </div>
+                <div class="product_column_info text-center mt-4">
+                  <a class="primary_btn mt-3" href="{{ product.url }}">{{section.settings.btn_label}}</a>
+                </div>
+              </div>
+      		</div>
+        {% endfor %}        
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+   "name": "product slider",
+   "class": "section_start",
+    "settings": [
+	  {
+        "type": "header",
+        "content": "title and info"
+      },
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+	  {
+        "type": "richtext",
+        "id": "richtext",
+        "label": "Info"
+      },
+	  {
+        "type": "text",
+        "id": "test_product_label",
+        "label": "Testing Kit Button label"
+      },
+	  {
+        "type": "url",
+        "id": "test_product_url",
+        "label": "Testing Kit Button URL"
+      },
+	  {
+        "type": "header",
+        "content": "Product section"
+      },
+      {
+        "type": "collection",
+        "id": "collection",
+        "label": "collection"
+      },
+	  {
+        "type": "text",
+        "id": "btn_label",
+        "label": "Button text",
+		"default":"Shop Now"
+      }
+    ],
+	"blocks": [
+	  {
+         "type": "blends_features",
+         "name": "Blends Features",
+         "settings": [
+			{
+               "type": "image_picker",
+               "id": "features_image",
+               "label": "features image"
+            },
+			{
+              "type": "text",
+              "id": "features_title",
+              "label": "features title"
+            }			
+         ]
+      }
+   ],
+   "presets": [
+      {
+         "name": {
+            "en": "product slider"
+         },
+         "category": {
+            "en": "Home page section"
+         }
+      }
+   ]
+}
+{% endschema %}

@@ -1,0 +1,33 @@
+<section class="info_section">
+  <div class="info_section_inner">
+    <div class="container">
+      {% if section.settings.title != blank %}
+      <div class="hero_section_info text-center">
+        <h2 class="mb-0">{{ section.settings.title }}</h2>
+        {% if section.settings.richtext != blank %}
+        	<div class="richtext">{{ section.settings.richtext }}</div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Info section",
+	"class":"section_start",
+    "settings": [
+		{
+          "type":"text",
+          "id":"title",
+          "label":"Title"
+		},
+		{
+          "type":"richtext",
+          "id":"richtext",
+          "label":"Text"
+		}
+	]
+  }
+{% endschema %}

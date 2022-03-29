@@ -1,0 +1,102 @@
+<section class="meet_jida_image_gallery">
+  <div class="meet_jida_image_gallery_inner">
+  	<div class="section_header text-center pb-5 container">
+      {% if section.settings.title != blank %}
+      	<h2 class="position-relative">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.subtitle != blank %}
+      	<h5 class="secondary_color h3">{{ section.settings.subtitle }}</h5>
+      {% endif %}
+      {% if section.settings.richtext != blank %}
+      	<div class="richtext">{{ section.settings.richtext }}</div>
+      {% endif %}
+    </div>
+    <div class="image_gallery_section mt-md-5">
+      <div class="image_gallery_row container">
+      	{% for block in section.blocks %}
+          {% if block.settings.gallery_image != blank %}
+            <div class="image_gallery_column image_gallery_column_transform_{{ forloop.index }}">
+              <img src="{{ block.settings.gallery_image | img_url: 'large' }}" alt="gallery image"/>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="image_gallery_info">
+    	<div class="up_wave mb-n1">
+          <img class="w-100" src="https://cdn.shopify.com/s/files/1/0267/9373/8343/files/down_wave.svg" alt="down wave shape">
+      	</div>
+        <div class="image_gallery_info_inner">
+          <div class="container">
+            <div class="richtext pb-5 pt-10 text-center">
+            	{{- section.settings.gallery_info -}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+{% if section.settings.bg_color != blank %}
+<style>
+  .image_gallery_info_inner{
+    background-color:{{ section.settings.bg_color }};
+  }
+</style>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Image Gallery",
+	"class": "section_start",
+    "settings": [
+	  {
+        "type": "header",
+        "content": "title and info"
+      },
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+	  {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle"
+      },
+	  {
+        "type": "richtext",
+        "id": "richtext",
+        "label": "Info"
+      },
+	  {
+        "type": "header",
+        "content": "Gallery Info"
+      },
+	  {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background color"
+      },
+      {
+        "type": "richtext",
+        "id": "gallery_info",
+        "label": "Info text"
+      }
+    ],
+	"blocks":[
+		{
+			"type":"Image",
+			"name":"Image",
+			"settings":[
+				{
+                  "type": "image_picker",
+                  "id": "gallery_image",
+                  "label": "Gallery image"
+                }
+			]
+		}
+	]
+  }
+{% endschema %}

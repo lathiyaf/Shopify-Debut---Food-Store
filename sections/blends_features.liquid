@@ -1,0 +1,98 @@
+<section class="blends_features">
+  <div class="blends_features_inner">    
+    <div class="container">
+      <div class="blends_step_start">
+          <div class="row justify-content-center">
+            {% for block in section.blocks %}
+            <div class="{%- if section.blocks.size == 1 -%}col-12 col-md-12{%- endif -%}
+                        {%- if section.blocks.size == 2 -%}col-6 col-md-6{%- endif -%}
+                        {%- if section.blocks.size == 3 -%}col-4 col-md-2{%- endif -%}
+                        {%- if section.blocks.size == 4 -%}col-6 col-md-3{%- endif -%}">
+              <div class="blends_features_column text-center">
+                {% if block.settings.features_image != blank %}
+                <div class="blends_features_icon">
+                	<img class="lazyload" data-src="{{ block.settings.features_image | img_url:'80x80' }}" alt="blends features icon" />
+                </div>
+                {% endif %}
+                {% if block.settings.features_title != blank %}
+                <div class="blends_features_info mt-3">
+                  <h5 class="mb-0 mb-md-2">{{ block.settings.features_title }}</h5>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        <div class="text-center">
+          {% if section.settings.btn_link != blank %}
+          	<a class="primary_btn mt-3" href="{{ section.settings.btn_link }}">{{ section.settings.btn_label }}</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .blends_features_inner{
+    background-color:{{ section.settings.bg_color }};
+    padding: 20px 0;
+  }
+</style>
+
+{% schema %}
+{
+   "name": "Blends features Section",
+   "class": "section_start",
+   "max_blocks":4,
+	"settings": [
+	  {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background color"
+      },
+	  {
+        "type": "header",
+        "content": "shop button"
+      },
+	  {
+        "type": "url",
+        "id": "btn_link",
+        "label": "Button URL"
+      },
+      {
+        "type": "text",
+        "id": "btn_label",
+        "label": "Button label"
+      }
+    ],
+   "blocks": [
+	  {
+         "type": "blends_features",
+         "name": "Blends Features",
+         "settings": [
+			{
+               "type": "image_picker",
+               "id": "features_image",
+               "label": "features image"
+            },
+			{
+              "type": "text",
+              "id": "features_title",
+              "label": "features title"
+            }			
+         ]
+      }
+   ],
+   "presets": [
+      {
+         "name": {
+            "en": "Blends features Section"
+         },
+         "category": {
+            "en": "Home page section"
+         }
+      }
+   ]
+}
+{% endschema %}

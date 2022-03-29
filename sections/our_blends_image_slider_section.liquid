@@ -1,0 +1,82 @@
+<section class="image_slider">
+   <div class="image_slider_inner">
+      <div class="">
+        {% if section.settings.title != blank %}
+          <div class="section_header text-center pb-5">
+              <h2 class="position-relative">{{ section.settings.title }}</h2>
+            {% if section.settings.subtitle != blank %}
+              <h5 class="secondary_color h3">{{ section.settings.subtitle }}</h5>
+            {% endif %}
+          </div>  
+		{% endif %}
+        <div class="image_slider_start section_start">
+          <div class="row image_slider_section">
+          	{% for block in section.blocks %}
+              {% if block.settings.slider_image != blank %}
+                <div class="col-md-4 mx-md-5">
+                  <div class="image_slider_slide">
+                      <img src="{{ block.settings.slider_image | img_url: '660x470' }}" alt="Image slider"/>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+   </div>
+</section>
+
+{% if section.settings.bg_shape != blank %}
+<style>
+  .image_slider_inner{
+    background-image:url({{ section.settings.bg_shape | img_url: '1920x450' }});
+    background-repeat: no-repeat;
+    background-position: bottom;
+  }
+</style>
+{% endif %}
+
+{% schema %}
+{
+   "name": "Image slider",
+   "class": "section_start",
+   "settings": [
+	  {
+        "type": "header",
+        "content": "title and info"
+      },
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+	  {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle"
+      },
+	  {
+        "type": "header",
+        "content": "background shape"
+      },
+	  {
+        "type": "image_picker",
+        "id": "bg_shape",
+        "label": "Background shape"
+      }
+   ],
+	"blocks":[
+		{
+			"type":"Imageslider",
+			"name":"Images slider",
+			"settings":[
+				{
+                  "type": "image_picker",
+                  "id": "slider_image",
+                  "label": "Image slider"
+                }
+			]
+		}
+	]
+}
+{% endschema %}

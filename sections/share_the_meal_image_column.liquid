@@ -1,0 +1,84 @@
+<section class="share_the_meal_image_column">
+  <div class="share_the_meal_image_column_inner">
+    <div class="container">
+      <div class="share_the_meal_image_column_start p-5 row align-items-center">
+        <div class="col-md-5 text-center share_the_meal_first_image_column">
+          {% if section.settings.info_img_1 != blank %}
+          <div class="share_the_meal_image_column_start_inner">
+          	<img src="{{ section.settings.info_img_1 | img_url: '500x350' }}" alt="info image"/>
+          </div>
+          <h3 class="mt-4 mb-0">{{ section.settings.title_1 }}</h3>
+          {% endif %}
+        </div>
+        <div class="col-md-2 text-center">
+          {% if section.settings.info_img_2 != blank %}
+        	<svg class="d-none d-md-inline-block" width="80" height="40" viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            	<path d="M79.0834 17.788C79.0825 17.787 79.0817 17.7859 79.0806 17.785L62.7519 1.53499C61.5286 0.317646 59.55 0.322176 58.3323 1.54561C57.1148 2.76889 57.1195 4.74749 58.3428 5.96499L69.3059 16.875H3.125C1.39906 16.875 0 18.274 0 20C0 21.7259 1.39906 23.125 3.125 23.125H69.3058L58.343 34.035C57.1197 35.2525 57.115 37.2311 58.3325 38.4544C59.5502 39.6779 61.5289 39.6822 62.752 38.465L79.0808 22.215C79.0817 22.214 79.0825 22.213 79.0836 22.212C80.3075 20.9905 80.3036 19.0055 79.0834 17.788Z" fill="#1E1E1E"/>
+            </svg>
+            <svg class="d-md-none my-3" width="30" height="60" viewBox="0 0 30 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.659 59.3126C16.6597 59.3119 16.6606 59.3113 16.6613 59.3105L28.8488 47.0639C29.7618 46.1464 29.7584 44.6625 28.8408 43.7493C27.9233 42.8361 26.4394 42.8396 25.5263 43.7571L17.3438 51.9795L17.3438 2.34375C17.3438 1.0493 16.2945 -5.78598e-07 15 -6.35181e-07C13.7056 -6.91763e-07 12.6563 1.0493 12.6563 2.34375L12.6563 51.9793L4.47377 43.7572C3.56064 42.8398 2.0767 42.8362 1.15924 43.7494C0.241541 44.6626 0.238378 46.1467 1.15127 47.064L13.3388 59.3106C13.3395 59.3113 13.3403 59.3119 13.341 59.3127C14.2572 60.2306 15.7459 60.2277 16.659 59.3126Z" fill="#1E1E1E"/>
+            </svg>
+           {% endif %}
+        </div>
+        <div class="col-md-5 text-center">
+          {% if section.settings.info_img_2 != blank %}
+          <div class="share_the_meal_image_column_start_inner">
+          	<img src="{{ section.settings.info_img_2 | img_url: '500x350' }}" alt="info image"/>
+          </div>
+          <h3 class="mt-4 mb-0">{{ section.settings.title_2 }}</h3>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if section.settings.bg_color != blank %}
+<style>
+  .share_the_meal_image_column_start{
+    background-color:{{ section.settings.bg_color }};
+  }
+</style>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Image column section",
+	"class":"section_start",
+    "settings": [
+		{
+          "type":"color",
+          "id":"bg_color",
+          "label":"Background color"
+		},
+		{
+          "type":"header",
+		  "content":"First column"
+		},
+		{
+          "type":"image_picker",
+          "id":"info_img_1",
+          "label":"First image"
+		},
+		{
+          "type":"text",
+          "id":"title_1",
+          "label":"Title"
+		},
+		{
+          "type":"header",
+		  "content":"second column"
+		},
+		{
+          "type":"image_picker",
+          "id":"info_img_2",
+          "label":"Second image"
+		},
+		{
+          "type":"text",
+          "id":"title_2",
+          "label":"Title"
+		}
+	]
+  }
+{% endschema %}

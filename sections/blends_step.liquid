@@ -1,0 +1,172 @@
+<section class="blends_step">
+   <div class="up_wave mb-n1">
+      <img class="w-100" src="https://cdn.shopify.com/s/files/1/0267/9373/8343/files/up_wave.svg" alt="up wave shape"/>
+   </div>
+   <div class="blends_step_inner section_start">
+      <div class="container">
+         <div class="section_header text-center mb-5">
+            {% if section.settings.title != blank %}
+            <h2 class="position-relative">{{ section.settings.title }}</h2>
+            {% endif %}
+            {% if section.settings.richtext != blank %}
+            <h4>{{ section.settings.richtext }}</h4>
+            {% endif %}
+         </div>
+         <div class="section_body">
+            <div class="blends_step_start">
+               <div class="row blends_step_slider">
+                  {% for block in section.blocks %}
+                  <div class="{%- if section.blocks.size == 1 -%}col-md-12{%- endif -%}
+                     {%- if section.blocks.size == 2 -%}col-md-6{%- endif -%}
+                     {%- if section.blocks.size == 3 -%}col-md-4{%- endif -%}
+                     {%- if section.blocks.size == 4 -%}col-md-3{%- endif -%}">
+                     <div class="blends_step_column text-center p-3 h-100">
+                        {% if block.settings.step_text != blank %}
+                        <h3>{{ block.settings.step_text }} {{forloop.index}}</h3>
+                        {% endif %}
+                        {% if block.settings.video_url != blank %}
+                        <div class="blends_step_video my-3">
+                          <video class="rounded" width="100%" height="100%" playsinline muted="" {% if forloop.first %} onended="home_blends_video_2()" autoplay {% endif %} {% if forloop.index == 2 %} onended="home_blends_video_3()" {% endif %} {% if forloop.index == 3 %} onended="home_blends_video_1()" {% endif %} {% if forloop.index == 4 %} onended="home_blends_video_4()" {% endif %} onclick="this.play()" id="home_blends_video_{{ forloop.index }}" {% if forloop.last == true %}poster="https://cdn.shopify.com/s/files/1/0267/9373/8343/files/blends_last_step_img.png?v=1628573057"{% endif %}>
+                          	<source class="lazyload" src="{{ block.settings.video_url }}" type="video/mp4"/>
+                          </video>
+                        </div>
+                        {% endif %}
+                        <div class="py-3">
+                           {% if block.settings.step_title != blank %}
+                           <h3>{{ block.settings.step_title }}</h3>
+                           {% endif %}
+                           {% if block.settings.step_info != blank %}
+                           <div>
+                              {{ block.settings.step_info }}
+                           </div>
+                           {% endif %}
+                        </div>
+                     </div>
+                  </div>
+                  {% endfor %}
+               </div>
+              <div class="text-center">
+                {% if section.settings.btn_link != blank %}
+                  <a class="primary_btn mt-5" href="{{ section.settings.btn_link }}">{{ section.settings.btn_label }}</a>
+                {% endif %}
+              </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+<style>
+  .blends_step_inner{
+    background-color:{{ section.settings.bg_color }};
+  }
+</style>
+
+<script>
+var blendsPlayer1 = document.getElementById("home_blends_video_1");
+
+function home_blends_video_1(){
+    blendsPlayer1.play();
+};
+  
+var blendsPlayer = document.getElementById("home_blends_video_2");
+
+function home_blends_video_2(){
+    blendsPlayer.play();
+};
+  
+var blendsPlayer2 = document.getElementById("home_blends_video_3");
+
+function home_blends_video_3(){
+    blendsPlayer2.play();
+};  
+  
+{% if forloop.index == 4 %}  
+var blendsPlayer3 = document.getElementById("home_blends_video_4");
+
+function home_blends_video_4(){
+    blendsPlayer3.play();
+};  
+{% endif %}  
+</script>
+
+{% schema %}
+{
+   "name": "Blends step Section",
+   "class": "section_start",
+   "max_blocks": 4,
+   "settings": [
+      {
+         "type": "color",
+         "id": "bg_color",
+         "label": "Background color"
+      },
+      {
+         "type": "header",
+         "content": "section header"
+      },
+      {
+         "type": "text",
+         "id": "title",
+         "label": "Title"
+      },
+      {
+         "type": "text",
+         "id": "richtext",
+         "label": "Info"
+      },
+	  {
+        "type": "header",
+        "content": "shop button"
+      },
+	  {
+        "type": "url",
+        "id": "btn_link",
+        "label": "Button URL"
+      },
+      {
+        "type": "text",
+        "id": "btn_label",
+        "label": "Button label"
+      }
+   ],
+   "blocks": [
+      {
+         "type": "blends_steps",
+         "name": "Blends step",
+         "settings": [
+            {
+               "type": "text",
+               "id": "step_text",
+               "label": "Step text"
+            },
+            {
+               "type": "text",
+               "id": "video_url",
+               "label": "Video url"
+            },
+            {
+               "type": "text",
+               "id": "step_title",
+               "label": "Step title"
+            },
+            {
+               "type": "richtext",
+               "id": "step_info",
+               "label": "Step info"
+            }
+         ]
+      }
+   ],
+   "presets": [
+      {
+         "name": {
+            "en": "Blends step Section"
+         },
+         "category": {
+            "en": "Home page section"
+         }
+      }
+   ]
+}
+{% endschema %}

@@ -1,0 +1,60 @@
+{% if article.metafields.feature_row_image.feature_row_img != blank %}
+<section class="feature_row_section">
+   <div class="feature_row_section_inner">
+      <div class="container">
+        <div class="row align-items-center{% if section.settings.image_alignment == 'right' %} flex-row-reverse{% endif %}">
+          <div class="col-md-7">
+            <div class="feature_row_column text-center">
+              <div class="feature_row_img d-inline-block position-relative">
+                {% if article.metafields.feature_row_image.feature_row_img != blank %}
+              	<img src="{{ article.metafields.feature_row_image.feature_row_img }}" alt="article tip image"/>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="feature_row_column feature_row_info">
+              <div class="section_header text-center">
+              {% if article.metafields.feature_row_title_2.feature_row_2_title != blank %}
+                <h2 class="position-relative">{{ article.metafields.feature_row_title_2.feature_row_2_title }}</h2>
+              {% endif %}
+              {% if article.metafields.feature_row_info.feature_row_info_text != blank %}
+                <div class="richtext"><p>{{ article.metafields.feature_row_info.feature_row_info_text }}</p></div>
+              {% endif %}
+              </div>  
+            </div>
+          </div>
+        </div>
+      </div>
+   </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+   "name": "Feature row Section",
+   "class": "section_start",
+   "settings": [     
+	  {
+         "type": "header",
+         "content": "Image alignment"
+      },
+	  {
+         "type": "select",
+         "id": "image_alignment",
+         "label": "Image alignment",
+         "options": [
+           {
+             "value": "left",
+             "label": "Left"
+           },
+           {
+             "value": "right",
+             "label": "Right"
+           }
+         ],
+         "default": "left"
+      }
+   ]
+}
+{% endschema %}

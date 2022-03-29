@@ -1,0 +1,62 @@
+<section class="feature_row_section">
+  <div class="feature_row_section_inner">
+    <div class="container">
+      <div class="feature_row_section_start">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="recipes_feature_row_column">
+              {% if article.metafields.feature_row_title.ingredients_title != blank %}
+              	<h3 class="mb-0">{{article.metafields.feature_row_title.ingredients_title}}</h3>
+              {% endif %}
+<!--               <ul class="ingredients list-unstyled">
+              	{% for ingredients in article.metafields.ingredients_listing.ingredients_list %}
+                <li class="position-relative"><h4 class="mb-0">{{ ingredients }}</h4></li>
+                {% endfor %}
+              </ul> -->
+              {% if article.metafields.recipes__ingredients.recipes_ingredients_list != blank %}
+              {{article.metafields.recipes__ingredients.recipes_ingredients_list}}
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-md-1"></div>
+          <div class="col-md-5 mt-5 mt-md-0">
+            <div class="recipes_feature_row_column">
+              {% assign product = all_products[article.metafields.recipes_feature_row.recipes_feature_row_product] %}
+              {% if product.featured_image != blank %}
+               <div class="collection_product_column text-center">
+                 <div class="collection_column_product_img position-relative">
+                   {% for image in product.images %}
+                     {% if image.alt == 'productimage' %}
+                     <img
+                          class="lazyload"
+                          data-src="{{ image.src | img_url: 'master' }}"                      
+                          data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                          data-aspectratio="{{ image.aspect_ratio }}"
+                          data-sizes="auto"
+                          alt="{{ image.alt | escape }}">   
+                     {% endif %}
+                    {% endfor %}
+                 </div>
+                 <div class="collection_products_info mt-4">
+                   <h4>{{ product.title }}</h4>
+                   <h5 class="price_color my-3">{% include 'product-price-listing', product: product, show_vendor: show_vendor %}</h5>
+                   <a href="{{ product.url }}" class="primary_btn">Add to Cart</a>
+                 </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Feature row section",
+	"class":"section_start"
+    
+  }
+{% endschema %}
+

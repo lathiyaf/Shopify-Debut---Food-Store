@@ -1,0 +1,108 @@
+<section class="feature_row_section">
+   <div class="feature_row_section_inner">
+      <div class="container">
+        <div class="section_header text-center">
+          {% if section.settings.title != blank %}
+            <h2 class="position-relative">{{ section.settings.title }}</h2>
+          {% endif %}
+          {% if section.settings.richtext != blank %}
+            <div class="richtext">{{ section.settings.richtext }}</div>
+          {% endif %}
+        </div>
+        <div class="row align-items-center{% if section.settings.image_alignment == 'right' %} flex-row-reverse{% endif %}">
+          <div class="col-md-4">
+            <div class="feature_row_column text-center">
+              <div class="feature_row_img d-inline-block position-relative">
+                {% if section.settings.image != blank %}
+              	<img src="{{ section.settings.image | img_url: 'large' }}" alt="{{ section.settings.image.alt }}"/>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="feature_row_column feature_row_info py-3 py-md-0">
+              {% if section.settings.richtext_info != blank %}
+                <div class="richtext h5">{{ section.settings.richtext_info }}</div>
+              {% endif %}
+              {% if section.settings.btn_link != blank %}
+                <div class="">
+                  <a class="primary_btn" href="{{ section.settings.btn_link }}">{{ section.settings.btn_label }}</a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+   </div>
+</section>
+
+{% schema %}
+{
+   "name": "Feature row Section",
+   "class": "section_start",
+   "settings": [
+	  {
+        "type": "header",
+        "content": "title and info"
+      },
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+	  {
+        "type": "richtext",
+        "id": "richtext",
+        "label": "Info"
+      },
+      {
+         "type": "header",
+         "content": "Feature row image"
+      },
+	  {
+         "type": "image_picker",
+         "id": "image",
+         "label": "Image"
+      },
+	  {
+         "type": "header",
+         "content": "Feature row Text info"
+      },
+      {
+         "type": "richtext",
+         "id": "richtext_info",
+         "label": "Info"
+      },
+	  {
+          "type": "url",
+          "id": "btn_link",
+          "label": "Button URL"
+      },
+      {
+          "type": "text",
+          "id": "btn_label",
+          "label": "Button label"
+      },
+	  {
+         "type": "header",
+         "content": "Image alignment"
+      },
+	  {
+         "type": "select",
+         "id": "image_alignment",
+         "label": "Image alignment",
+         "options": [
+           {
+             "value": "left",
+             "label": "Left"
+           },
+           {
+             "value": "right",
+             "label": "Right"
+           }
+         ],
+         "default": "left"
+      }
+   ]
+}
+{% endschema %}

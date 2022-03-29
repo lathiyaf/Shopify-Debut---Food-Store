@@ -1,0 +1,53 @@
+<section>
+  <div class="richtext_section">
+    <div class="richtext_section_inner">
+      <div class="container">
+        <div class="section_header text-center">
+          {% if section.settings.title != blank %}
+            <h2 class="position-relative">{{ section.settings.title }}</h2>
+          {% endif %}
+          {% if section.settings.richtext != blank %}
+            <div class="richtext">{{ section.settings.richtext }}</div>
+          {% endif %}
+        </div>
+        {% if section.settings.richtext_info != blank %}
+        <div class="richtext text-center mt-5">
+          {{ section.settings.richtext_info }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Richtext section",
+	"class":"section_start",
+    "settings": [
+		{
+          "type": "header",
+          "content": "title and info"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "richtext",
+          "label": "Info"
+        },
+		{
+          "type": "header",
+          "content": "Text info"
+        },
+		{
+          "type":"richtext",
+          "id":"richtext_info",
+          "label":"Text info"
+		}
+	]
+  }
+{% endschema %}

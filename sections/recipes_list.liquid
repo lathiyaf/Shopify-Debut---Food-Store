@@ -1,0 +1,133 @@
+<section class="recipes_list">
+  <div class="recipes_list_inner">
+    <div class="">
+      {% comment %}
+      <div class="recipes_filter container section_start">
+        <div class="row pb-3 border-bottom justify-content-between">
+          <div class="recipes_filter_column col-md-4 d-flex align-items-center mb-2 mb-md-0 p-md-0">
+            <h4 class="mb-0 me-2">
+            	Blends:
+            </h4>
+            <select class="form-select" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+              	<option selected>Select blend</option>
+            	{% for block in section.blocks %}
+              		{%- assign blog = blogs[block.settings.blog] -%}
+              		<option value="{{ blog.url }}">{{ blog.title }}</option>
+              	{% endfor %}
+            </select>
+          </div>
+          <div class="recipes_filter_column col-md-4 d-flex align-items-center p-md-0">
+            <h4 class="mb-0 me-2">
+            	Type:
+            </h4>                     
+            <select class="form-select w-100" id="BlogTagFilter" aria-describedby="a11y-refresh-page-message a11y-selection-message" data-blog-tag-filter>
+              <option value="/pages/recipes">{{ 'blogs.article.all_topics' | t }}</option>
+              {% for block in section.blocks %}
+              	{%- assign blog = blogs[block.settings.blog] -%}
+                {% for tag in blog.all_tags %}
+                	<option value="{{ blog.url }}/tagged/{{ tag | handleize }}" {% if current_tags contains tag %}selected{% endif %}>{{ tag }}</option>
+                {% endfor %}
+              {% endfor %}     
+            </select>
+          </div>          
+        </div>
+      </div>
+      {% endcomment %}
+      <div class="recipes_list_start container">
+      	{% for block in section.blocks %}
+          <div class="recipes_list_start_inner section_start">
+        	{%- assign blog = blogs[block.settings.blog] -%}
+            <div class="section_header text-center mb-5">
+              {% if block.settings.title != blank %}
+              <h2 class="position-relative">{{block.settings.title}}</h2>
+              {% endif %}
+           	</div>
+            <div class="blends_step_slider row pb-3 m-0 recipes_listing_slider">
+              {%- for article in blog.articles reversed -%}
+              <div class="col-md-3 px-md-4" data-tag="{% for tag in blog.all_tags %}{{ tag | handleize }},{% endfor %}">
+                <div class="recipes_card">
+                  <div class="recipes_featured_image">
+                    <a href="{{ article.url }}">
+                  		<img class="rounded" src="{{ article.image | img_url: '410x410' }}" alt="recipes image"/>
+                    </a>
+                  </div>
+                  <div class="recipes_card_info mt-4">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <a href="{{ article.url }}">
+                      	<h4>{{ article.title }}</h4>
+                      </a> 
+                      {% if article.metafields.recipes_list_info.recipes_list_difficulty != blank %}
+                      <h6 class="difficulty_label">{{article.metafields.recipes_list_info.recipes_list_difficulty}}</h6>
+                      {% endif %}
+                    </div>  
+                    {% if article.metafields.recipes_list_info.recipes_list_cook_time != blank %}
+                    <h6>{{article.metafields.recipes_list_info.recipes_list_cook_time}}</h6>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+              {%- endfor -%}
+            </div>
+            {% if block.settings.blog != blank %}
+            <div class="pt-5 d-flex align-items-center justify-content-center">
+              	{% if section.settings.recipes_button != blank %}
+                <div class="text-center px-2">
+                  <a class="primary_btn d-inline-block py-3" href="{{ blog.url }}">{{ section.settings.recipes_button }}</a>
+                </div>
+                {% endif %}
+                {% if block.settings.shop_blend_url != blank %}
+                <div class="text-center px-2">
+                  <a class="primary_border_btn d-inline-block py-3" href="{{ block.settings.shop_blend_url }}">{{ section.settings.shop_button }}</a>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div> 
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "Recipes",
+	"class":"section_start",
+	"settings": [      	  
+	  {
+        "type":"text",
+        "id":"recipes_button",
+        "label":"Recipes Button label"
+      },
+	  {
+        "type":"text",
+        "id":"shop_button",
+        "label":"Shop Button label"
+      }
+    ],
+	"blocks": [
+      {
+         "type": "recipesList",
+         "name": "Recipes list",
+         "settings": [
+			{
+              "type":"text",
+              "id":"title",
+              "label":"Recipes title"
+            },
+			{
+              "type":"blog",
+              "id":"blog",
+              "label":"Blog"
+            },
+			{
+              "type":"url",
+              "id":"shop_blend_url",
+              "label":"Shop Blend url"
+            }
+         ]
+      }
+   ]
+  }
+{% endschema %}

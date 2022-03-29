@@ -1,0 +1,88 @@
+<section class="share_the_meal_info">
+  <div class="share_the_meal_info_inner">
+    <div class="container">
+      <div class="section_header text-center">
+          {% if section.settings.title != blank %}
+            <h2 class="position-relative">{{ section.settings.title }}</h2>
+          {% endif %}
+          {% if section.settings.richtextinfo != blank %}
+            <div class="richtext">{{ section.settings.richtextinfo }}</div>
+          {% endif %}
+      </div>
+      <div class="row align-items-center justify-content-center">
+        <div class="col-4 col-md-3 text-center">
+          {% if section.settings.info_img_1 != blank %}
+          <div class="info_image_class">
+          	<img src="{{ section.settings.info_img_1 | img_url: '250x250' }}" alt="info image"/>
+          </div>
+          {% endif %}
+        </div>
+        <div class="col-3 col-md-1 text-center">
+          {% if section.settings.info_img_2 != blank %}
+          <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+         	 <path d="M47.4999 22.5H27.5002V2.49985C27.5002 1.12015 26.38 0 24.9998 0C23.6201 0 22.5 1.12015 22.5 2.49985V22.5H2.49985C1.12015 22.5 0 23.6201 0 24.9998C0 26.38 1.12015 27.5002 2.49985 27.5002H22.5V47.4999C22.5 48.88 23.6201 50.0002 24.9998 50.0002C26.38 50.0002 27.5002 48.88 27.5002 47.4999V27.5002H47.4999C48.88 27.5002 50.0002 26.38 50.0002 24.9998C50.0002 23.6201 48.88 22.5 47.4999 22.5Z" fill="#8E935D"/>
+          </svg>
+          {% endif %}
+        </div>
+        <div class="col-4 col-md-3 text-center">
+          {% if section.settings.info_img_2 != blank %}
+          <div class="info_image_class">
+          	<img src="{{ section.settings.info_img_2 | img_url: '250x250' }}" alt="info image"/>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% if section.settings.richtext != blank %}
+      <div class="richtext text-center">
+      	{{ section.settings.richtext }}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Info section",
+	"class":"section_start",
+    "settings": [		
+		{
+          "type": "header",
+          "content": "title and info"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "richtextinfo",
+          "label": "Info"
+        },
+		{
+          "type":"header",
+		  "content":"info images"
+		},
+		{
+          "type":"image_picker",
+          "id":"info_img_1",
+          "label":"First info image"
+		},
+		{
+          "type":"image_picker",
+          "id":"info_img_2",
+          "label":"Second info image"
+		},
+		{
+          "type":"header",
+		  "content":"info text"
+		},
+		{
+          "type":"richtext",
+          "id":"richtext",
+          "label":"Text"
+		}
+	]
+  }
+{% endschema %}

@@ -1,0 +1,164 @@
+<section class="recipes_section home_recipes_section">
+   <div class="up_wave mb-n1">
+      <img class="w-100" src="https://cdn.shopify.com/s/files/1/0267/9373/8343/files/down_wave.svg" alt="down wave shape"/>
+   </div>
+   <div class="recipes_section_inner">
+      <div class="container">
+          {% if section.settings.test_product_url != blank %}
+          <div class="large_btn text-center mt_negative">
+            <a class="primary_large_btn" href="{{ section.settings.test_product_url }}">{{ section.settings.test_product_label }}</a>
+          </div>
+          {% endif %}
+         <div class="section_header text-center mb-0 mb-md-5">
+            {% if section.settings.title != blank %}
+            <h2 class="position-relative">{{ section.settings.title }}</h2>
+            {% endif %}
+            {% if section.settings.richtext != blank %}
+           <h5 class="richtext">{{ section.settings.richtext }}</h5>
+            {% endif %}
+         </div>
+        <div class="section_body pb-5">
+          <div class="recipes_scrollable">
+            <div class="row pb-4 recipes_mobile_slider">
+            	{% for block in section.blocks %}              
+                  {% if block.settings.bg_image != blank %}
+                      <div class="col-md-4">
+                        <div class="recipes_column text-center position-relative">
+                          <div class="recipes_info p-3 recipes_top_info">
+                            {% if block.settings.recipes_title != blank %}
+                            	<h3>{{ block.settings.recipes_title }}</h3>
+                            {% endif %}
+                            {% if block.settings.recipes_info != blank %}
+                            <div class="h6">
+                              {{ block.settings.recipes_info }}
+                            </div>
+                            {% endif %}    
+                          </div>
+                          <div class="recipes_image">
+                            <a href="{{ block.settings.btn_link }}"><img class="lazyload" data-src="{{ block.settings.bg_image | img_url: '545x550' }}" alt="{{ block.settings.bg_image.alt }}"/></a>
+                          </div>
+                          <div class="recipes_info white_color p-3">
+                            {% if block.settings.btn_link != blank %}
+                            	<a class="white_primary_btn mt-4" href="{{ block.settings.btn_link }}">{{ block.settings.btn_label }}</a>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                  {% endif %}
+              	{% endfor %}
+            </div>
+          </div>
+          {% if section.settings.view_btn_link != blank %}
+          <div class="text-center mt-0 mt-md-5">
+            <a class="primary_btn" href="{{ section.settings.view_btn_link }}">{{ section.settings.view_btn_label }}</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+   </div>
+</section>
+
+<style>
+  .recipes_section_inner{
+    background-color:{{ section.settings.bg_color }};
+  }
+</style>
+
+{% schema %}
+{
+   "name": "Recipes Section",
+   "class": "section_start",
+   "settings": [
+      {
+         "type": "color",
+         "id": "bg_color",
+         "label": "Background color"
+      },
+	  {
+           "type": "header",
+           "content": "Testing kit Button"
+      },
+      {
+          "type": "text",
+          "id": "test_product_label",
+          "label": "Testing Kit Button label"
+      },
+      {
+          "type": "url",
+          "id": "test_product_url",
+          "label": "Testing Kit Button URL"
+      },
+      {
+         "type": "header",
+         "content": "section header"
+      },
+      {
+         "type": "text",
+         "id": "title",
+         "label": "Title"
+      },
+      {
+         "type": "text",
+         "id": "richtext",
+         "label": "Info"
+      },
+	  {
+         "type": "header",
+         "content": "View all Button"
+      },
+	  {
+        "type": "url",
+        "id": "view_btn_link",
+        "label": "Button URL"
+      },
+      {
+        "type": "text",
+        "id": "view_btn_label",
+        "label": "Button label"
+      }
+   ],
+   "blocks": [
+      {
+         "type": "recipes",
+         "name": "Recipes",
+         "settings": [
+            {
+               "type": "image_picker",
+               "id": "bg_image",
+               "label": "Recipes background image"
+            },
+            {
+               "type": "text",
+               "id": "recipes_title",
+               "label": "Recipes title"
+            },
+            {
+               "type": "richtext",
+               "id": "recipes_info",
+               "label": "Recipes info"
+            },
+			{
+              "type": "url",
+              "id": "btn_link",
+              "label": "Button URL"
+            },
+            {
+              "type": "text",
+              "id": "btn_label",
+              "label": "Button label"
+            }
+         ]
+      }
+   ],
+   "presets": [
+      {
+         "name": {
+            "en": "Recipes Section"
+         },
+         "category": {
+            "en": "Home page section"
+         }
+      }
+   ]
+}
+{% endschema %}

@@ -1,0 +1,23 @@
+<section class="recipes_banner">
+  <div class="recipes_banner_inner">
+    {% if article.metafields.recipes_post.recipes_banner_image != blank %}
+    <div class="recipes_banner_img d-none d-md-block">
+    	<img src="{{article.metafields.recipes_post.recipes_banner_image}}" alt="recipes image"/>
+    </div>	
+    {% endif %}
+    {% if article.metafields.recipes_post.recipes_mobile_banner != blank %}
+    <div class="recipes_mobile_banner_img d-md-none">
+    	<img src="{{article.metafields.recipes_post.recipes_mobile_banner}}" alt="recipes image"/>
+    </div>	
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Recipes banner",
+	"class":"section_start"
+    
+  }
+{% endschema %}
+

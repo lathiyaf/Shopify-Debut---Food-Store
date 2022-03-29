@@ -1,0 +1,71 @@
+<section class="bg_img_with_card_section">
+  <div class="container">
+     <div class="bg_img_with_card_section_inner">
+          <div class="bg_info_card text-center section_header">
+              {% if section.settings.title != blank %}
+                  <h2 class="position-relative">{{ section.settings.title }}</h2>
+              {% endif %}
+              {% if section.settings.richtext != blank %}
+                  <div class="richtext mb-3">{{ section.settings.richtext }}</div>
+              {% endif %}
+              {% if section.settings.view_btn_link != blank %}
+              <div class="text-center mt-3">
+                <a class="primary_btn" href="{{ section.settings.view_btn_link }}">{{ section.settings.view_btn_label }}</a>
+              </div>
+              {% endif %}
+          </div>
+     </div>
+  </div>
+</section>
+
+<style>
+  .bg_img_with_card_section_inner{
+    background-image:url({{ section.settings.bg_img | img_url: '1350x460' }});
+    padding: 100px 20px;
+    border-radius: 10px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+</style>
+
+{% schema %}
+{
+   "name": "Bg image with card",
+   "class": "section_start",
+   "settings": [
+	  {
+         "type": "header",
+         "content": "background image"
+      },
+      {
+         "type": "image_picker",
+         "id": "bg_img",
+         "label": "Background image"
+      },  
+	  {
+         "type": "header",
+         "content": "info card"
+      },
+      {
+         "type": "text",
+         "id": "title",
+         "label": "Title"
+      },
+      {
+         "type": "text",
+         "id": "richtext",
+         "label": "Info"
+      },
+	  {
+        "type": "url",
+        "id": "view_btn_link",
+        "label": "Button URL"
+      },
+      {
+        "type": "text",
+        "id": "view_btn_label",
+        "label": "Button label"
+      }
+   ]
+}
+{% endschema %}

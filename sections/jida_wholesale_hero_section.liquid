@@ -1,0 +1,45 @@
+<section>
+  <div class="hero_section">
+    <div class="hero_section_inner">
+      <div class="container">
+        <div class="hero_section_info text-center">
+          <h2 class="mb-0 white_color">{{ section.settings.title }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if section.settings.bg_image != blank %}
+<style>
+  .hero_section{
+    background-image:url({{ section.settings.bg_image | img_url: '1920x400' }});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Hero section",
+	"class":"section_start",
+    "settings": [
+		{
+          "type":"image_picker",
+          "id":"bg_image",
+          "label":"Background image"
+		},
+		{
+          "type":"text",
+          "id":"title",
+          "label":"Title"
+		}
+	]
+  }
+{% endschema %}

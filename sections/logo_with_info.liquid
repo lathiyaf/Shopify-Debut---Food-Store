@@ -1,0 +1,68 @@
+<section class="logo_with_info_section">
+  <div class="logo_with_info_section_inner">
+    <div class="text-center position-relative">
+      <div class="logo_img">
+        {% if section.settings.image != blank %}
+        <img class="lazyload"
+             src="{{ section.settings.image | img_url: '300x300' }}"
+             data-src="{{ img_url }}"
+             data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+             data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+             data-sizes="auto"
+             alt="{{ section.settings.image.alt | escape }}">          
+        {% endif %}
+      </div>
+      {% if section.settings.title != blank %}
+      	<h5 class="mt-3 primary_color">{{ section.settings.title }}</h5>
+      {% endif %}
+      <div class="logo_label_img">
+      	{% if section.settings.logo_label_img != blank %}
+        <img class="lazyload"
+             src="{{ section.settings.logo_label_img | img_url: '300x300' }}"
+             data-src="{{ img_url }}"
+             data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+             data-aspectratio="{{ section.settings.logo_label_img.aspect_ratio }}"
+             data-sizes="auto"
+             alt="{{ section.settings.logo_label_img.alt | escape }}">          
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+   "name": "logo with info Section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+	  {
+        "type": "header",
+        "content": "Label logo image"
+      },
+	  {
+        "type": "image_picker",
+        "id": "logo_label_img",
+        "label": "Logo label image"
+      }
+    ],
+   "presets": [
+      {
+         "name": {
+            "en": "logo with info Section"
+         },
+         "category": {
+            "en": "Home page section"
+         }
+      }
+   ]
+}
+{% endschema %}

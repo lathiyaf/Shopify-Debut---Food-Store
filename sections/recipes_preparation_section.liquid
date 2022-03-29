@@ -1,0 +1,64 @@
+<section class="preparation_section">
+  <div class="preparation_section_inner">
+    <div class="container">
+      <div class="section_header text-center mb-5 d-md-flex align-items-center">
+        {% if article.metafields.section_title.preparation_title != blank %}
+        <h2 class="position-relative justify-content-md-start">{{ article.metafields.section_title.preparation_title }}</h2>
+        {% endif %}
+        <div class="preventScreenSwitch form-check form-switch d-flex align-items-center ps-0">            
+          <label class="form-check-label mb-0 pe-3" for="preventScreen">Prevent your screen from going dark while you cook.</label>
+          <input class="form-check-input" type="checkbox" id="preventScreen">
+        </div>        	
+      </div>
+      <div class="preparation_section_start">
+        <ul class="list-unstyled px-3">
+          {% assign i = 0 %}
+          {% for preparation_info in article.metafields.recipes_preparation.recipes_preparation_info %}
+          <li class="row align-items-center">
+            {% if article.metafields.recipes_preparation.recipes_preparation_img[i] != blank %}
+            <div class="col-md-3 order-2 order-md-1">
+            	<img src="{{ article.metafields.recipes_preparation.recipes_preparation_img[i] }}" alt="preparation image"/>
+            </div>
+            {% endif %}
+            <div class="col-md-9 order-1 order-md-2">
+              <h4 class="preparation_step_label mb-3">Step {{forloop.index}}</h4>
+              <div class="richtext">
+                <p>{{ preparation_info }}</p>
+              </div>
+            </div>
+          </li>
+          {% assign i = i | plus: 1 %}
+          {% endfor %}          
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Prevent your screen from going dark code
+$(document).ready(function () {
+var noSleep = new NoSleep();
+
+var wakeLockEnabled = false;
+var toggleEl = document.querySelector("#preventScreen");
+toggleEl.addEventListener('click', function() {
+  if (!wakeLockEnabled) {
+    noSleep.enable(); // keep the screen on!
+    wakeLockEnabled = true;
+  } else {
+    noSleep.disable(); // let the screen turn off.
+    wakeLockEnabled = false;
+  }
+}, false);
+}); 
+</script>
+
+{% schema %}
+  {
+    "name": "Preparation section",
+	"class":"section_start"
+    
+  }
+{% endschema %}
+

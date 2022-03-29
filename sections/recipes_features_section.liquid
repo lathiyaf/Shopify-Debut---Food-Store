@@ -1,0 +1,40 @@
+<section class="recipes_features_section">
+  <div class="recipes_features_section_inner">
+    <div class="container">
+      <div class="recipes_features_section_start">
+        <div class="row justify-content-center">
+          {% assign i = 0 %}
+          {% assign ii = 0 %}
+          {% for recipes_features_icon in article.metafields.recipes_features.recipes_features_icon %}            
+          <div class="col-3 col-md-3 px-1 px-md-2">
+            <div class="recipes-features-column text-center">
+              {% if recipes_features_icon != blank %}
+              <div class="recipes-features-icon mx-auto">
+                <img src="{{recipes_features_icon}}" alt="recipes features icon"/>
+              </div>        
+              {% endif %}
+              {% if article.metafields.recipes_features.recipes_features_title[i] != blank %}
+              <h5 class="my-3">{{ article.metafields.recipes_features.recipes_features_title[i] }}</h5>
+              {% endif %}
+              {% if article.metafields.recipes_features.recipes_features_title_info[ii] != blank %}
+              <h3 class="mb-0">{{ article.metafields.recipes_features.recipes_features_title_info[ii] }}</h3>
+              {% endif %}
+            </div>
+          </div>
+          {% assign i = i | plus: 1 %}
+          {% assign ii = ii | plus: 1 %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Recipes Features section",
+	"class":"section_start"
+    
+  }
+{% endschema %}
+
